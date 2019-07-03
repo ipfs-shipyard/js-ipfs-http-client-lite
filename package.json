@@ -20,9 +20,9 @@
     "test:webworker": "aegir test -t webworker",
     "lint": "aegir lint",
     "build": "aegir build",
-    "release": "aegir release ",
-    "release-minor": "aegir release --type minor ",
-    "release-major": "aegir release --type major ",
+    "release": "aegir release --no-docs",
+    "release-minor": "aegir release --type minor --no-docs",
+    "release-major": "aegir release --type major --no-docs",
     "coverage": "npx nyc -r html npm run test:node -- --bail"
   },
   "dependencies": {
