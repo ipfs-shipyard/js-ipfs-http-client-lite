@@ -140,7 +140,7 @@ This module is in heavy development, not all API methods are available (or docum
 
 * [IpfsHttpClientLite](./API.md#ipfshttpclientlite)
 * [add](./API.md#add)
-* [addPullStream](./API.md#addpullstream) TODO: add docs
+* [addPullStream](./API.md#addpullstream)
 * [addFromStream](./API.md#addfromstream) TODO: add docs
 * [addFromURL](./API.md#addfromurl) TODO: add docs
 * [bitswap.stat](./API.md#bitswapstat) TODO: add docs

@@ -2,7 +2,7 @@
 
 * [IpfsHttpClientLite](#ipfshttpclientlite)
 * [add](#add)
-* [addPullStream](#addpullstream) TODO: add docs
+* [addPullStream](#addpullstream)
 * [addFromStream](#addfromstream) TODO: add docs
 * [addFromURL](#addfromurl) TODO: add docs
 * [bitswap.stat](#bitswapstat) TODO: add docs
@@ -178,7 +178,6 @@ console.log(res)
 A stream:
 
 ```js
-const fs = require('fs')
 const res = await ipfs.add(fs.createReadStream('./package.json'))
 console.log(res)
 /*
@@ -195,7 +194,6 @@ console.log(res)
 ##### Multiple files
 
 ```js
-const fs = require('fs')
 const res = await ipfs.add([
   { path: 'my-package.json', content: fs.createReadStream('./package.json') },
   { path: 'hello.txt', content: Buffer.from('hello world!') }
@@ -222,7 +220,6 @@ Wrap multiple files in a directory:
 In this example, the last item in the array is the wrapping directory, it allows you to access `hello.txt` using `ipfs.cat` with the following path `/ipfs/QmVY4sGYjQ4RNmJNBaJiWocTYAkzi4CkHfT16cXGouMdN7/hello.txt` but it can also be accessed using `ipfs.cat` with `/ipfs/QmTp2hEo8eXRp6wg7jXv1BLCMh5a4F3B7buAUZNZUu772j` (note the former uses the directory CID and the latter uses the file CID).
 
 ```js
-const fs = require('fs')
 const res = await ipfs.add([
   { path: 'my-package.json', content: fs.createReadStream('./package.json') },
   { path: 'hello.txt', content: Buffer.from('hello world!') }
@@ -246,6 +243,74 @@ console.log(res)
     name: '',
     hash: 'QmVY4sGYjQ4RNmJNBaJiWocTYAkzi4CkHfT16cXGouMdN7',
     size: '2052'
+  }
+]
+*/
+```
+
+## `addPullStream`
+
+Add/import files and directories to IPFS via pull streams and retrieve their CID(s).
+
+### `addPullStream([options]): PullThrough`
+
+#### Parameters
+
+* `options` (optional) See docs for [`add`](#add) for available options.
+    * Type: `Object`
+    * Default: `null`
+
+#### Returns
+
+A "through" pull stream that can be used in a pull pipeline.
+
+#### Examples
+
+##### Single file
+
+```js
+const data = Buffer.from('hello world!')
+
+pull(
+  pull.values([data]),
+  ipfs.addPullStream(),
+  pull.collect((err, res) => console.log(res))
+)
+
+/*
+[
+  {
+    name: 'QmTp2hEo8eXRp6wg7jXv1BLCMh5a4F3B7buAUZNZUu772j',
+    hash: 'QmTp2hEo8eXRp6wg7jXv1BLCMh5a4F3B7buAUZNZUu772j',
+    size: '20'
+  }
+]
+*/
+```
+
+##### Multiple files
+
+```js
+pull(
+  pull.values([
+    { path: 'my-package.json', content: fs.createReadStream('./package.json') },
+    { path: 'hello.txt', content: Buffer.from('hello world!') }
+  ]),
+  ipfs.addPullStream(),
+  pull.collect((err, res) => console.log(res))
+)
+
+/*
+[
+  {
+    name: 'my-package.json',
+    hash: 'QmPoPzFTHedjR4TJcQwx1rPv8YSqAnzzFT35194vC8UShH',
+    size: '1919'
+  },
+  {
+    name: 'hello.txt',
+    hash: 'QmTp2hEo8eXRp6wg7jXv1BLCMh5a4F3B7buAUZNZUu772j',
+    size: '20'
   }
 ]
 */
