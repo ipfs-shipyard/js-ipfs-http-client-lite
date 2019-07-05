@@ -7,7 +7,7 @@ const { ok, toIterable } = require('../lib/fetch')
 const { toFormData } = require('./form-data')
 const toCamel = require('../lib/to-camel')
 
-module.exports = configure(({ fetch, apiUrl, apiPath, signal, headers }) => {
+module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return (input, options) => (async function * () {
     options = options || {}
 

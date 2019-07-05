@@ -5,16 +5,14 @@ const { ok } = require('../lib/fetch')
 const toCamel = require('../lib/to-camel')
 
 module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
-  return async (options) => {
+  return async (cid, options) => {
     options = options || {}
 
-    const url = `${apiUrl}${apiPath}/bitswap/stat`
+    const url = `${apiUrl}${apiPath}/block/stat?arg=${encodeURIComponent(cid)}`
     const res = await ok(fetch(url, {
       signal: options.signal,
       headers: options.headers || headers
     }))
-    const data = toCamel(await res.json())
-    data.wantlist = (data.wantlist || []).map(item => item['/'])
-    return data
+    return toCamel(await res.json())
   }
 })

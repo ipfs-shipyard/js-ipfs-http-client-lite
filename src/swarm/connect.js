@@ -4,7 +4,7 @@ const QueryString = require('querystring')
 const configure = require('../lib/configure')
 const { ok } = require('../lib/fetch')
 
-module.exports = configure(({ fetch, apiUrl, apiPath, signal, headers }) => {
+module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return async (addrs, options) => {
     addrs = Array.isArray(addrs) ? addrs : [addrs]
     options = options || {}

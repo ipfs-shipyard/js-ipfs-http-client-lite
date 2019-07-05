@@ -19,7 +19,9 @@ module.exports = config => {
       wantlist: callbackify(require('./bitswap/wantlist')(config))
     },
     block: {
-      get: callbackify(require('./block/get')(config))
+      get: callbackify(require('./block/get')(config)),
+      put: callbackify(require('./block/put')(config)),
+      stat: callbackify(require('./block/stat')(config))
     },
     cat: callbackify(concatify(cat)),
     catPullStream: pullify.source(cat),

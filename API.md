@@ -7,7 +7,9 @@
 * [addFromURL](#addfromurl) TODO: add docs
 * [bitswap.stat](#bitswapstat) TODO: add docs
 * [bitswap.wantlist](#bitswapwantlist) TODO: add docs
-* [block.get](#blockget) TODO: add docs
+* [block.get](#blockget)
+* [block.put](#blockput)
+* [block.stat](#blockstat)
 * [cat](#cat)
 * [catPullStream](#catpullstream) TODO: add docs
 * [ls](#ls) TODO: add docs
@@ -316,6 +318,129 @@ pull(
 */
 ```
 
+## block.get
+
+Fetch a raw block from the IPFS block store or the network via bitswap if not local.
+
+### `block.get(cid, [options]): Promise<Buffer>`
+
+#### Parameters
+
+* `cid` - CID of the block to fetch
+    * Type: `String`
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+
+#### Returns
+
+A buffer containing the raw bytes of the block.
+
+* Type: `Promise<Buffer>`
+
+#### Example
+
+```js
+const data = await ipfs.block.get('zdpuAtpzCB7ma5zNyCN7eh1Vss1dHWuScf91DbE1ix9ZTbjAk')
+console.log(data) // buffer containing block data
+```
+
+## block.put
+
+Put a block into the IPFS block store.
+
+### `block.put(data, [options]): Promise<Object>`
+
+#### Parameters
+
+* `data` - Raw data for this block
+    * Type: `Buffer`/`Blob`/`File`
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.format` (optional) - Name of the IPLD format this block is encoded with
+    * Type: `String`
+    * Default: `dag-pb`
+* `options.mhtype` (optional) - Name of the multihash hashing algorithm to use
+    * Type: `String`
+    * Default: `sha2-256`
+* `options.mhlen` (optional) - Length of the hash in bits
+    * Type: `Number`
+    * Default: `256`
+* `options.pin` (optional) - Pin this block so it is not garbage collected
+    * Type: `Boolean`
+    * Default: `false`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+
+#### Returns
+
+CID and size for the block that was added.
+
+* Type: `Promise<Object>`
+
+The `Object` has the following properties:
+
+* `key` - The CID of the block
+    * Type: `String`
+* `size` - Size of the block in bytes
+    * Type: `Number`
+
+#### Examples
+
+```js
+const data = Buffer.from('blorb')
+const res = await ipfs.block.put(data)
+console.log(res)
+/*
+{ key: 'QmPv52ekjS75L4JmHpXVeuJ5uX2ecSfSZo88NSyxwA3rAQ', size: 5 }
+*/
+```
+
+## block.stat
+
+Get status for a block.
+
+### `block.stat(cid, [options]): Promise<Object>`
+
+#### Parameters
+
+* `cid` - CID of the block
+    * Type: `String`
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+
+#### Returns
+
+CID and size of the block.
+
+* Type: `Promise<Object>`
+
+The `Object` has the following properties:
+
+* `key` - The CID of the block
+    * Type: `String`
+* `size` - Size of the block in bytes
+    * Type: `Number`
+
+#### Examples
+
+```js
+const res = await ipfs.block.stat('zb2rhj7crUKTQYRGCRATFaQ6YFLTde2YzdqbbhAASkL9uRDXn')
+console.log(res)
+/*
+{ key: 'zb2rhj7crUKTQYRGCRATFaQ6YFLTde2YzdqbbhAASkL9uRDXn', size: 11 }
+*/
+```
+
 ## `cat`
 
 Read files from IPFS.
@@ -335,6 +460,9 @@ Read files from IPFS.
 * `options.length` (optional) - Number of bytes to read
     * Type: `Number`
     * Default: `null` (read to the end of the file)
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
 
 #### Returns
 

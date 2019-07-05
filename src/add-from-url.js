@@ -3,8 +3,8 @@
 const configure = require('./lib/configure')
 const { ok, toIterable } = require('./lib/fetch')
 
-module.exports = configure(({ fetch, apiUrl, apiPath, signal, headers }) => {
-  const add = require('./add')({ fetch, apiUrl, apiPath, signal, headers })
+module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
+  const add = require('./add')({ fetch, apiUrl, apiPath, headers })
 
   return (url, options) => (async function * () {
     options = options || {}

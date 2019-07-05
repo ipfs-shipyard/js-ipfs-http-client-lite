@@ -4,7 +4,7 @@ const { Buffer } = require('buffer')
 const configure = require('./lib/configure')
 const { ok, toIterable } = require('./lib/fetch')
 
-module.exports = configure(({ fetch, apiUrl, apiPath, signal, headers }) => {
+module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return (cid, options) => (async function * () {
     options = options || {}
 

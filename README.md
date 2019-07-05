@@ -145,7 +145,9 @@ This module is in heavy development, not all API methods are available (or docum
 * [addFromURL](./API.md#addfromurl) TODO: add docs
 * [bitswap.stat](./API.md#bitswapstat) TODO: add docs
 * [bitswap.wantlist](./API.md#bitswapwantlist) TODO: add docs
-* [block.get](./API.md#blockget) TODO: add docs
+* [block.get](./API.md#blockget)
+* [block.put](./API.md#blockput)
+* [block.stat](./API.md#blockstat)
 * [cat](./API.md#cat)
 * [catPullStream](./API.md#catpullstream) TODO: add docs
 * [ls](./API.md#ls) TODO: add docs

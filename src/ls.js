@@ -5,7 +5,7 @@ const configure = require('./lib/configure')
 const { ok } = require('./lib/fetch')
 const toCamel = require('./lib/to-camel')
 
-module.exports = configure(({ fetch, apiUrl, apiPath, signal, headers }) => {
+module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return (path, options) => (async function * () {
     options = options || {}
 

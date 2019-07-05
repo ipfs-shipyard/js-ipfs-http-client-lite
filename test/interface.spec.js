@@ -25,11 +25,10 @@ describe('interface-ipfs-core tests', () => {
   })
 
   tests.block(defaultCommon, {
-    // skip: [{
-    //   name: 'should get a block added as CIDv1 with a CIDv0',
-    //   reason: 'go-ipfs does not support the `version` param'
-    // }]
-    skip: { reason: 'LITE: not implemented yet' }
+    skip: [{
+      name: 'should get a block added as CIDv1 with a CIDv0',
+      reason: 'LITE: TODO: version param needs to be removed - not implemented in go-ipfs and not valid'
+    }]
   })
 
   tests.bootstrap(defaultCommon, { skip: { reason: 'LITE: not implemented yet' } })
