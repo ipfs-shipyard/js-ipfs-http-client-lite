@@ -8,19 +8,22 @@ const blobToAsyncIterable = require('../lib/blob-to-async-iterable')
 /*
 Transform one of:
 
-Buffer/ArrayBuffer/TypedArray
-Blob/File
+Buffer|ArrayBuffer|TypedArray
+Blob|File
 { path, content: Buffer }
+{ path, content: Blob }
 { path, content: Iterable<Buffer> }
 { path, content: AsyncIterable<Buffer> }
 { path, content: PullStream<Buffer> }
 Iterable<Number>
 Iterable<{ path, content: Buffer }>
+Iterable<{ path, content: Blob }>
 Iterable<{ path, content: Iterable<Number> }>
 Iterable<{ path, content: AsyncIterable<Buffer> }>
 Iterable<{ path, content: PullStream<Buffer> }>
 AsyncIterable<Buffer>
 AsyncIterable<{ path, content: Buffer }>
+AsyncIterable<{ path, content: Blob }>
 AsyncIterable<{ path, content: Iterable<Buffer> }>
 AsyncIterable<{ path, content: AsyncIterable<Buffer> }>
 AsyncIterable<{ path, content: PullStream<Buffer> }>
@@ -32,14 +35,14 @@ AsyncIterable<{ path, content: AsyncIterable<Buffer> }>
 */
 
 module.exports = function normalizeInput (input) {
-  // Buffer/ArrayBuffer/TypedArray
+  // Buffer|ArrayBuffer|TypedArray
   if (Buffer.isBuffer(input) || ArrayBuffer.isView(input) || input instanceof ArrayBuffer) {
     return (async function * () { // eslint-disable-line require-await
       yield normalizeTuple({ path: '', content: input })
     })()
   }
 
-  // Blob/File
+  // Blob|File
   if (typeof Blob !== 'undefined' && input instanceof Blob) {
     return (async function * () { // eslint-disable-line require-await
       yield normalizeTuple({ path: '', content: input })
@@ -48,6 +51,7 @@ module.exports = function normalizeInput (input) {
 
   // Iterable<Number>
   // Iterable<{ path, content: Buffer }>
+  // Iterable<{ path, content: Blob }>
   // Iterable<{ path, content: Iterable<Number> }>
   // Iterable<{ path, content: AsyncIterable<Buffer> }>
   // Iterable<{ path, content: PullStream<Buffer> }>
@@ -66,6 +70,7 @@ module.exports = function normalizeInput (input) {
 
   // AsyncIterable<Buffer>
   // AsyncIterable<{ path, content: Buffer }>
+  // AsyncIterable<{ path, content: Blob }>
   // AsyncIterable<{ path, content: Iterable<Buffer> }>
   // AsyncIterable<{ path, content: AsyncIterable<Buffer> }>
   // AsyncIterable<{ path, content: PullStream<Buffer> }>
@@ -99,6 +104,7 @@ module.exports = function normalizeInput (input) {
   }
 
   // { path, content: Buffer }
+  // { path, content: Blob }
   // { path, content: Iterable<Buffer> }
   // { path, content: AsyncIterable<Buffer> }
   // { path, content: PullStream<Buffer> }
@@ -122,7 +128,7 @@ function normalizeTuple ({ path, content }) {
 }
 
 function toAsyncIterable (input) {
-  // Buffer/ArrayBuffer/TypedArray/array of bytes
+  // Buffer|ArrayBuffer|TypedArray|array of bytes
   if (input[Symbol.iterator]) {
     const buf = Buffer.from(input)
     return Object.assign(
@@ -131,7 +137,7 @@ function toAsyncIterable (input) {
     )
   }
 
-  // Blob/File
+  // Blob|File
   if (typeof Blob !== 'undefined' && input instanceof Blob) {
     return Object.assign(
       blobToAsyncIterable(input),
