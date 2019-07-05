@@ -140,22 +140,92 @@ This module is in heavy development, not all API methods are available (or docum
 
 * [IpfsHttpClientLite](./API.md#ipfshttpclientlite)
 * [add](./API.md#add)
-* [addPullStream](./API.md#addpullstream)
+* addFromFs
 * [addFromStream](./API.md#addfromstream) TODO: add docs
 * [addFromURL](./API.md#addfromurl) TODO: add docs
+* [addPullStream](./API.md#addpullstream)
 * [bitswap.stat](./API.md#bitswapstat) TODO: add docs
 * [bitswap.wantlist](./API.md#bitswapwantlist) TODO: add docs
 * [block.get](./API.md#blockget)
 * [block.put](./API.md#blockput)
 * [block.stat](./API.md#blockstat)
+* bootstrap.add
+* bootstrap.list
+* bootstrap.rm
 * [cat](./API.md#cat)
 * [catPullStream](./API.md#catpullstream) TODO: add docs
+* config.get
+* config.replace
+* config.set
+* dag.get
+* dag.put
+* dag.tree
+* dht.findPeer
+* dht.findProvs
+* dht.get
+* dht.provide
+* dht.put
+* dht.query
+* dns
+* files.cp
+* files.flush
+* files.ls
+* files.lsPullStream
+* files.mkdir
+* files.mv
+* files.read
+* files.readPullStream
+* files.rm
+* files.stat
+* files.write
+* [id](./API.md#id) TODO: add docs
+* key.export
+* key.gen
+* key.import
+* key.list
+* key.rename
+* key.rm
 * [ls](./API.md#ls) TODO: add docs
 * [lsPullStream](./API.md#lspullstream) TODO: add docs
-* [id](./API.md#id) TODO: add docs
+* name.pubsub.cancel
+* name.pubsub.state
+* name.pubsub.subs
+* object.data
+* object.get
+* object.links
+* object.new
+* object.patch.addLink
+* object.patch.appendData
+* object.patch.rmLink
+* object.patch.setData
+* object.put
+* pin.add
+* pin.ls
+* pin.rm
 * [ping](./API.md#ping) TODO: add docs
 * [pingPullStream](./API.md#pingpullstream) TODO: add docs
+* pubsub.publish
+* pubsub.ls
+* pubsub.peers
+* pubsub.subscribe
+* pubsub.unsubscribe
+* refs
+* refsPullStream
+* refs.local
+* refs.localPullStream
+* repo.gc
+* repo.stat
+* repo.version
+* resolve
+* shutdown
+* stats.bitswap
+* stats.bw
+* stats.bwPullStream
+* stats.repo
+* swarm.addrs
 * [swarm.connect](./API.md#swarmconnect) TODO: add docs
+* swarm.disconnect
+* swarm.localAddrs
 * [swarm.peers](./API.md#swarmpeers) TODO: add docs
 * [version](./API.md#version) TODO: add docs
 

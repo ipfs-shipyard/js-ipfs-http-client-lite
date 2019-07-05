@@ -2,22 +2,92 @@
 
 * [IpfsHttpClientLite](#ipfshttpclientlite)
 * [add](#add)
-* [addPullStream](#addpullstream)
+* addFromFs
 * [addFromStream](#addfromstream) TODO: add docs
 * [addFromURL](#addfromurl) TODO: add docs
+* [addPullStream](#addpullstream)
 * [bitswap.stat](#bitswapstat) TODO: add docs
 * [bitswap.wantlist](#bitswapwantlist) TODO: add docs
 * [block.get](#blockget)
 * [block.put](#blockput)
 * [block.stat](#blockstat)
+* bootstrap.add
+* bootstrap.list
+* bootstrap.rm
 * [cat](#cat)
 * [catPullStream](#catpullstream) TODO: add docs
+* config.get
+* config.replace
+* config.set
+* dag.get
+* dag.put
+* dag.tree
+* dht.findPeer
+* dht.findProvs
+* dht.get
+* dht.provide
+* dht.put
+* dht.query
+* dns
+* files.cp
+* files.flush
+* files.ls
+* files.lsPullStream
+* files.mkdir
+* files.mv
+* files.read
+* files.readPullStream
+* files.rm
+* files.stat
+* files.write
+* [id](#id) TODO: add docs
+* key.export
+* key.gen
+* key.import
+* key.list
+* key.rename
+* key.rm
 * [ls](#ls) TODO: add docs
 * [lsPullStream](#lspullstream) TODO: add docs
-* [id](#id) TODO: add docs
+* name.pubsub.cancel
+* name.pubsub.state
+* name.pubsub.subs
+* object.data
+* object.get
+* object.links
+* object.new
+* object.patch.addLink
+* object.patch.appendData
+* object.patch.rmLink
+* object.patch.setData
+* object.put
+* pin.add
+* pin.ls
+* pin.rm
 * [ping](#ping) TODO: add docs
 * [pingPullStream](#pingpullstream) TODO: add docs
+* pubsub.publish
+* pubsub.ls
+* pubsub.peers
+* pubsub.subscribe
+* pubsub.unsubscribe
+* refs
+* refsPullStream
+* refs.local
+* refs.localPullStream
+* repo.gc
+* repo.stat
+* repo.version
+* resolve
+* shutdown
+* stats.bitswap
+* stats.bw
+* stats.bwPullStream
+* stats.repo
+* swarm.addrs
 * [swarm.connect](#swarmconnect) TODO: add docs
+* swarm.disconnect
+* swarm.localAddrs
 * [swarm.peers](#swarmpeers) TODO: add docs
 * [version](#version) TODO: add docs
 
