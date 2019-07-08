@@ -350,8 +350,7 @@ describe('interface-ipfs-core tests', () => {
         name: 'should subscribe 10 handlers and unsunscribe once with no reference to the handlers',
         reason: 'LITE: Max 6 open XHR requests in the browser - https://stackoverflow.com/questions/561046/how-many-concurrent-ajax-xmlhttprequest-requests-are-allowed-in-popular-browse'
       }
-    ]),
-    only: true
+    ])
   })
 
   tests.repo(defaultCommon, { skip: { reason: 'LITE: not implemented yet' } })

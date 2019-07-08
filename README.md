@@ -102,11 +102,10 @@ Instead of a local installation (and bundling) you may request a remote copy of 
 To always request the latest version, use the following:
 
 ```html
-<!-- loading the minified version -->
 <script src="https://unpkg.com/ipfs-http-client-lite/dist/index.min.js"></script>
-<!-- loading the human-readable (not minified) version -->
-<script src="https://unpkg.com/ipfs-http-client-lite/dist/index.js"></script>
 ```
+
+You can also use the un-minified version, just remove ".min" from the URL.
 
 For maximum security you may also decide to:
 
