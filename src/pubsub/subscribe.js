@@ -28,6 +28,7 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
       throw err
     }
 
+    // eslint-disable-next-line no-console
     const onError = options.onError || (err => console.error(err))
 
     ;(async () => {

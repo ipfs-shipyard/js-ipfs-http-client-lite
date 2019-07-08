@@ -1,3 +1,5 @@
+'use strict'
+
 const QueryString = require('querystring')
 
 // Convert an object to a query string INCLUDING leading ?
