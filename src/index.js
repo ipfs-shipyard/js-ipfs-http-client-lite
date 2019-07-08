@@ -30,6 +30,13 @@ module.exports = config => {
     id: callbackify(require('./id')(config)),
     ping: callbackify(collectify(ping)),
     pingPullStream: pullify.source(ping),
+    pubsub: {
+      ls: callbackify(require('./pubsub/ls')(config)),
+      peers: callbackify(require('./pubsub/peers')(config)),
+      publish: callbackify(require('./pubsub/publish')(config)),
+      subscribe: callbackify(require('./pubsub/subscribe')(config), { minArgs: 2 }),
+      unsubscribe: callbackify(require('./pubsub/unsubscribe')(config), { minArgs: 2 })
+    },
     swarm: {
       connect: callbackify(require('./swarm/connect')(config)),
       peers: callbackify(require('./swarm/peers')(config))

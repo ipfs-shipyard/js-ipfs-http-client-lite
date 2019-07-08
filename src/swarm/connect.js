@@ -1,6 +1,6 @@
 'use strict'
 
-const QueryString = require('querystring')
+const { objectToQuery } = require('../lib/querystring')
 const configure = require('../lib/configure')
 const { ok } = require('../lib/fetch')
 
@@ -9,9 +9,8 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
     addrs = Array.isArray(addrs) ? addrs : [addrs]
     options = options || {}
 
-    const qs = { arg: addrs.map(a => a.toString()) }
-
-    const url = `${apiUrl}${apiPath}/swarm/connect?${QueryString.stringify(qs)}`
+    const qs = objectToQuery({ arg: addrs.map(a => a.toString()) })
+    const url = `${apiUrl}${apiPath}/swarm/connect${qs}`
     const res = await ok(fetch(url, {
       signal: options.signal,
       headers: options.headers || headers

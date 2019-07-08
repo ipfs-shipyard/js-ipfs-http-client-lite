@@ -1,7 +1,7 @@
 'use strict'
 
 const ndjson = require('iterable-ndjson')
-const QueryString = require('querystring')
+const { objectToQuery } = require('../lib/querystring')
 const configure = require('../lib/configure')
 const { ok, toIterable } = require('../lib/fetch')
 const { toFormData } = require('./form-data')
@@ -11,7 +11,7 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return (input, options) => (async function * () {
     options = options || {}
 
-    const qs = Object.entries({
+    const qs = objectToQuery({
       'stream-channels': true,
       chunker: options.chunker,
       'cid-version': options.cidVersion,
@@ -28,12 +28,9 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
       silent: options.silent,
       trickle: options.trickle,
       'wrap-with-directory': options.wrapWithDirectory
-    }).reduce((obj, [key, value]) => {
-      if (value != null) obj[key] = value
-      return obj
-    }, {})
+    })
 
-    const url = `${apiUrl}${apiPath}/add?${QueryString.stringify(qs)}`
+    const url = `${apiUrl}${apiPath}/add${qs}`
     const res = await ok(fetch(url, {
       method: 'POST',
       signal: options.signal,

@@ -66,11 +66,11 @@
 * pin.rm
 * [ping](#ping) TODO: add docs
 * [pingPullStream](#pingpullstream) TODO: add docs
-* pubsub.publish
-* pubsub.ls
-* pubsub.peers
-* pubsub.subscribe
-* pubsub.unsubscribe
+* [pubsub.ls](#pubsubls)
+* [pubsub.peers](#pubsubpeers)
+* [pubsub.publish](#pubsubpublish)
+* [pubsub.subscribe](#pubsubsubscribe)
+* [pubsub.unsubscribe](#pubsubunsubscribe)
 * refs
 * refsPullStream
 * refs.local
@@ -560,4 +560,198 @@ console.log(data.toString('utf8'))
 /*
 hello world!
 */
+```
+
+## pubsub.ls
+
+List subscribed topics by name.
+
+### `pubsub.ls([options]): Promise<String[]>`
+
+#### Parameters
+
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+
+#### Returns
+
+An array of subscribed topic names.
+
+* Type: `Promise<String[]>`
+
+#### Examples
+
+```js
+const res = await ipfs.pubsub.ls()
+console.log(res)
+/*
+[ 'my-pubsub-topic' ]
+*/
+```
+
+## pubsub.peers
+
+List peers we are currently pubsubbing with, optionally filtered by topic name.
+
+### `pubsub.peers([topic], [options]): Promise<String[]>`
+
+#### Parameters
+
+* `topic` (optional) - Pubsub topic name to filter peer list by
+    * Type: `String`
+    * Default: `null`
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+
+#### Returns
+
+An array of string peer IDs.
+
+* Type: `Promise<String[]>`
+
+#### Examples
+
+```js
+const res = await ipfs.pubsub.peers()
+console.log(res)
+/*
+[ 'QmPefeutipT4odZHRyBE3xBcWQxmBxZqS7n5zQxKZP9TNp' ]
+*/
+```
+
+## pubsub.publish
+
+Publish a message to a given pubsub topic.
+
+### `pubsub.publish(topic, message, [options]): Promise`
+
+#### Parameters
+
+* `topic` - Pubsub topic name to publish the topic to
+    * Type: `String`
+* `message` - Message to publish
+    * Type: `Buffer`/`ArrayBuffer`/`String`
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+
+#### Returns
+
+`Promise` resolved when the message has been published.
+
+* Type: `Promise`
+
+#### Examples
+
+```js
+await ipfs.pubsub.publish('my-pubsub-topic', Buffer.from('hello world!'))
+```
+
+## pubsub.subscribe
+
+Subscribe to messages on a given topic.
+
+**Note that in the browser there is a per-domain open request limit (6 for most browsers)**
+
+### `pubsub.subscribe(topic, handler, [options]): Promise`
+
+#### Parameters
+
+* `topic` - Pubsub topic name to subscribe to messages for
+    * Type: `String`
+* `handler` - A function called every time this node receives a message for the given topic.
+    * Type: `Function(msg<Object>)`. Message properties:
+        * `from` - Peer ID of the peer this message came from
+            * Type: `Buffer`
+        * `data` - Raw message data
+            * Type: `Buffer`
+        * `seqno` - 20 byte random message number
+            * Type: `Buffer`
+        * `topicIDs` - Topic names this message was published to
+            * Type: `String[]`
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.discover` (optional) - Try to discover other peers subscribed to the same topic
+    * Type: `Boolean`
+    * Deafult: `false`
+* `options.onError` (optional) - An error handler called when the request errors or parsing of a given message fails. It is passed two parameters, the error that occurred and a boolean indicating if it was a fatal error or not (fatal errors terminate the subscription).
+    * Type: `Function(err<Error>, fatal<Boolean>)`
+    * Default: `null`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+
+#### Returns
+
+`Promise` resolved when initial subscription has been set up.
+
+* Type: `Promise`
+
+#### Examples
+
+```js
+await ipfs.pubsub.subscribe('my-pubsub-topic', msg => {
+  console.log(msg)
+  console.log('data: ', msg.data.toString())
+})
+/*
+{
+  from: <Buffer 12 20 70 c6 f4 37 4d 49 d2 7f 3a 26 fd 3c 91 ac 15 40 57 f5 93 2d 96 2b ec 1b ce b5 76 10 0c 54 f8 ad>,
+  data: <Buffer 68 69>,
+  seqno: <Buffer 15 af 62 bb 78 af 86 79>,
+  topicIDs: [ 'my-pubsub-topic' ]
+}
+data: hi
+*/
+```
+
+## pubsub.unsubscribe
+
+Stop receiving messages for a given topic.
+
+### `pubsub.unsubscribe(topic, [handler], [options]): Promise`
+
+#### Parameters
+
+* `topic` - Pubsub topic name to unsubscribe from.
+    * Type: `String`
+* `handler` (optional) - The handler function currently registered for this topic. If not provided, **all** handlers for the passed topic will be unsubscribed. Note this only works using the Promise API.
+    * Type: `Function`
+    * Default: `null`
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+
+#### Returns
+
+`Promise` resolved when topic has been unsubscribed.
+
+* Type: `Promise`
+
+#### Examples
+
+```js
+const handler = msg => console.log(msg)
+await ipfs.pubsub.unsubscribe('my-pubsub-topic', handler)
+```
+
+Unsubscribe all handlers:
+
+```js
+await ipfs.pubsub.unsubscribe('my-pubsub-topic')
 ```

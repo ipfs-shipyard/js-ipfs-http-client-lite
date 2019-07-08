@@ -102,11 +102,10 @@ Instead of a local installation (and bundling) you may request a remote copy of 
 To always request the latest version, use the following:
 
 ```html
-<!-- loading the minified version -->
 <script src="https://unpkg.com/ipfs-http-client-lite/dist/index.min.js"></script>
-<!-- loading the human-readable (not minified) version -->
-<script src="https://unpkg.com/ipfs-http-client-lite/dist/index.js"></script>
 ```
+
+You can also use the un-minified version, just remove ".min" from the URL.
 
 For maximum security you may also decide to:
 
@@ -204,11 +203,11 @@ This module is in heavy development, not all API methods are available (or docum
 * pin.rm
 * [ping](./API.md#ping) TODO: add docs
 * [pingPullStream](./API.md#pingpullstream) TODO: add docs
-* pubsub.publish
-* pubsub.ls
-* pubsub.peers
-* pubsub.subscribe
-* pubsub.unsubscribe
+* [pubsub.ls](./API.md#pubsubls)
+* [pubsub.peers](./API.md#pubsubpeers)
+* [pubsub.publish](./API.md#pubsubpublish)
+* [pubsub.subscribe](./API.md#pubsubsubscribe)
+* [pubsub.unsubscribe](./API.md#pubsubunsubscribe)
 * refs
 * refsPullStream
 * refs.local

@@ -1,6 +1,6 @@
 'use strict'
 
-const QueryString = require('querystring')
+const { objectToQuery } = require('./lib/querystring')
 const configure = require('./lib/configure')
 const { ok } = require('./lib/fetch')
 const toCamel = require('./lib/to-camel')
@@ -9,9 +9,7 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return (path, options) => (async function * () {
     options = options || {}
 
-    const qs = { arg: path.toString() }
-
-    const url = `${apiUrl}${apiPath}/ls?${QueryString.stringify(qs)}`
+    const url = `${apiUrl}${apiPath}/ls${objectToQuery({ arg: path.toString() })}`
     const res = await ok(fetch(url, {
       signal: options.signal,
       headers: options.headers || headers

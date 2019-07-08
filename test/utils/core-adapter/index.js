@@ -1,22 +1,31 @@
 'use strict'
 
+const callbackify = require('../../../src/lib/callbackify')
+
 // TODO: extract as separate module
 module.exports = ipfsLite => {
   const adapter = {
-    add: require('./add')(ipfsLite),
+    add: callbackify(require('./add')(ipfsLite), { minArgs: 1 }),
     addPullStream: require('./add-pull-stream')(ipfsLite),
-    addFromURL: require('./add-from-url')(ipfsLite),
+    addFromURL: callbackify(require('./add-from-url')(ipfsLite), { minArgs: 1 }),
     bitswap: {
-      stat: require('./bitswap/stat')(ipfsLite),
-      wantlist: require('./bitswap/wantlist')(ipfsLite)
+      stat: callbackify(require('./bitswap/stat')(ipfsLite)),
+      wantlist: callbackify(require('./bitswap/wantlist')(ipfsLite))
     },
     block: {
-      get: require('./block/get')(ipfsLite),
-      put: require('./block/put')(ipfsLite),
+      get: callbackify(require('./block/get')(ipfsLite)),
+      put: callbackify(require('./block/put')(ipfsLite)),
       stat: ipfsLite.block.stat
     },
-    ls: require('./ls')(ipfsLite),
-    lsPullStream: require('./ls-pull-stream')(ipfsLite)
+    ls: callbackify(require('./ls')(ipfsLite)),
+    lsPullStream: require('./ls-pull-stream')(ipfsLite),
+    pubsub: {
+      ls: ipfsLite.pubsub.ls,
+      peers: ipfsLite.pubsub.peers,
+      publish: ipfsLite.pubsub.publish,
+      subscribe: callbackify(require('./pubsub/subscribe')(ipfsLite), { minArgs: 2 }),
+      unsubscribe: callbackify(require('./pubsub/unsubscribe')(ipfsLite), { minArgs: 2 })
+    }
   }
 
   return new Proxy(ipfsLite, {

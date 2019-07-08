@@ -1,9 +1,8 @@
 'use strict'
 
-const callbackify = require('../../../../src/lib/callbackify')
 const linkTypeToString = require('./link-type-to-string')
 
-module.exports = ipfsLite => callbackify(async (...args) => {
+module.exports = ipfsLite => async (...args) => {
   const res = await ipfsLite.ls(...args)
   return res.map(({ name, hash, size, type }) => ({
     depth: 1,
@@ -13,4 +12,4 @@ module.exports = ipfsLite => callbackify(async (...args) => {
     size,
     type: linkTypeToString(type)
   }))
-})
+}
