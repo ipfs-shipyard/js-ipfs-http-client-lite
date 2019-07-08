@@ -2,8 +2,9 @@
 
 const HandlerMap = require('./handler-map')
 
-module.exports = ipfsLite => (topic, handler) => {
+module.exports = ipfsLite => async (topic, handler) => {
   const adapterHandler = HandlerMap.get(handler)
   HandlerMap.delete(handler)
-  return ipfsLite.pubsub.unsubscribe(topic, adapterHandler)
+  await ipfsLite.pubsub.unsubscribe(topic, adapterHandler)
+  await new Promise(resolve => setTimeout(resolve, 100))
 }
