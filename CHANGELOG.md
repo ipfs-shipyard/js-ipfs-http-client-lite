@@ -1,3 +1,13 @@
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/ipfs-shipyard/js-ipfs-http-client-lite/compare/v0.1.0...v0.2.0) (2019-07-08)
+
+
+### Features
+
+* pubsub ([#1](https://github.com/ipfs-shipyard/js-ipfs-http-client-lite/issues/1)) ([b045238](https://github.com/ipfs-shipyard/js-ipfs-http-client-lite/commit/b045238))
+
+
+
 <a name="0.1.0"></a>
 # [0.1.0](https://github.com/ipfs-shipyard/js-ipfs-http-client-lite/compare/v0.0.2...v0.1.0) (2019-07-05)
 
