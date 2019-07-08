@@ -11,10 +11,6 @@ module.exports = create => config => {
   config.apiPath = config.apiPath || '/api/v0'
   config.headers = new Headers(config.headers)
 
-  if (!config.headers.has('User-Agent')) {
-    config.headers.append('User-Agent', 'ipfs-http-client-lite/0.0.0')
-  }
-
   return create(config)
 }
 
