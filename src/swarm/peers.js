@@ -1,6 +1,6 @@
 'use strict'
 
-const QueryString = require('querystring')
+const { objectToQuery } = require('../lib/querystring')
 const configure = require('../lib/configure')
 const { ok } = require('../lib/fetch')
 
@@ -8,20 +8,13 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return async options => {
     options = options || {}
 
-    const qs = {}
+    const qs = objectToQuery({
+      verbose: options.verbose,
+      streams: options.streams,
+      latency: options.latency
+    })
 
-    if (options.verbose) {
-      qs.verbose = true
-    } else {
-      if (options.streams) {
-        qs.streams = true
-      }
-      if (options.latency) {
-        qs.latency = true
-      }
-    }
-
-    const url = `${apiUrl}${apiPath}/swarm/peers?${QueryString.stringify(qs)}`
+    const url = `${apiUrl}${apiPath}/swarm/peers${qs}`
     const res = await ok(fetch(url, {
       signal: options.signal,
       headers: options.headers || headers

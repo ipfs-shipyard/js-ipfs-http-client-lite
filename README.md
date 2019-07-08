@@ -204,11 +204,11 @@ This module is in heavy development, not all API methods are available (or docum
 * pin.rm
 * [ping](./API.md#ping) TODO: add docs
 * [pingPullStream](./API.md#pingpullstream) TODO: add docs
-* pubsub.publish
-* pubsub.ls
-* pubsub.peers
-* pubsub.subscribe
-* pubsub.unsubscribe
+* [pubsub.ls](./API.md#pubsubls)
+* [pubsub.peers](./API.md#pubsubpeers)
+* [pubsub.publish](./API.md#pubsubpublish)
+* [pubsub.subscribe](./API.md#pubsubsubscribe)
+* [pubsub.unsubscribe](./API.md#pubsubunsubscribe)
 * refs
 * refsPullStream
 * refs.local

@@ -3,9 +3,8 @@
 const CID = require('cids')
 const Multihash = require('multihashes')
 const Block = require('ipfs-block')
-const callbackify = require('../../../../src/lib/callbackify')
 
-module.exports = ipfsLite => callbackify(async (block, options) => {
+module.exports = ipfsLite => async (block, options) => {
   options = options || {}
 
   // Extract options from passed CID
@@ -22,4 +21,4 @@ module.exports = ipfsLite => callbackify(async (block, options) => {
 
   const { key } = await ipfsLite.block.put(block, options)
   return new Block(block, new CID(key))
-})
+}

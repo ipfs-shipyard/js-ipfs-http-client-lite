@@ -1,7 +1,7 @@
 'use strict'
 
-const QueryString = require('querystring')
 const FormData = require('form-data')
+const { objectToQuery } = require('../lib/querystring')
 const configure = require('../lib/configure')
 const { ok } = require('../lib/fetch')
 const toCamel = require('../lib/to-camel')
@@ -10,17 +10,14 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   const put = async (data, options) => {
     options = options || {}
 
-    const qs = Object.entries({
+    const qs = objectToQuery({
       format: options.format,
       mhtype: options.mhtype,
       mhlen: options.mhlen,
       pin: options.pin
-    }).reduce((obj, [key, value]) => {
-      if (value != null) obj[key] = value
-      return obj
-    }, {})
+    })
 
-    const url = `${apiUrl}${apiPath}/block/put?${QueryString.stringify(qs)}`
+    const url = `${apiUrl}${apiPath}/block/put${qs}`
 
     const body = new FormData()
     body.append('file', data)

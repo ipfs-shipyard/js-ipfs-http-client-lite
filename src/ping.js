@@ -1,7 +1,7 @@
 'use strict'
 
 const ndjson = require('iterable-ndjson')
-const QueryString = require('querystring')
+const { objectToQuery } = require('./lib/querystring')
 const configure = require('./lib/configure')
 const { ok, toIterable } = require('./lib/fetch')
 const toCamel = require('./lib/to-camel')
@@ -10,13 +10,8 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return (peerId, options) => (async function * () {
     options = options || {}
 
-    const qs = { arg: peerId }
-
-    if (options.count != null) {
-      qs.count = options.count
-    }
-
-    const url = `${apiUrl}${apiPath}/ping?${QueryString.stringify(qs)}`
+    const qs = objectToQuery({ arg: peerId, count: options.count })
+    const url = `${apiUrl}${apiPath}/ping${qs}`
     const res = await ok(fetch(url, {
       signal: options.signal,
       headers: options.headers || headers
