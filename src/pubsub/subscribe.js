@@ -1,6 +1,7 @@
 'use strict'
 
 const ndjson = require('iterable-ndjson')
+const explain = require('explain-error')
 const { objectToQuery } = require('../lib/querystring')
 const configure = require('../lib/configure')
 const { ok, toIterable } = require('../lib/fetch')
@@ -42,7 +43,7 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
               topicIDs: msg.topicIDs
             })
           } catch (err) {
-            onError(err, false) // Not fatal
+            onError(explain(err, 'Failed to parse pubsub message'), false) // Not fatal
           }
         }
       } catch (err) {
