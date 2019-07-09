@@ -3,6 +3,7 @@
 const { objectToQuery } = require('../lib/querystring')
 const configure = require('../lib/configure')
 const { ok } = require('../lib/fetch')
+const toCamel = require('../lib/to-camel')
 
 module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return async options => {
@@ -22,21 +23,10 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
     const data = await res.json()
 
     return (data.Peers || []).map(p => {
-      const peerInfo = {
-        addr: p.Addr,
-        peer: p.Peer
-      }
+      const peerInfo = toCamel(p)
 
-      if (options.verbose || options.streams) {
-        peerInfo.streams = (p.Streams || []).map(s => ({ protocol: s.Protocol }))
-      }
-
-      if (options.verbose || options.latency) {
-        peerInfo.latency = p.Latency
-      }
-
-      if (options.verbose) {
-        peerInfo.muxer = p.Muxer
+      if (peerInfo.streams) {
+        peerInfo.streams = peerInfo.streams.map(toCamel)
       }
 
       return peerInfo

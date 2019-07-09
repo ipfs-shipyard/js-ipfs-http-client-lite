@@ -359,7 +359,6 @@ describe('interface-ipfs-core tests', () => {
 
   tests.swarm(defaultCommon, {
     skip: [
-      { name: 'peers', reason: 'LITE: not implemented yet' },
       { name: 'addrs', reason: 'LITE: not implemented yet' },
       { name: 'localAddrs', reason: 'LITE: not implemented yet' },
       { name: 'disconnect', reason: 'LITE: not implemented yet' }

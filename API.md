@@ -85,10 +85,10 @@
 * stats.bwPullStream
 * stats.repo
 * swarm.addrs
-* [swarm.connect](#swarmconnect) TODO: add docs
+* [swarm.connect](#swarmconnect)
 * swarm.disconnect
 * swarm.localAddrs
-* [swarm.peers](#swarmpeers) TODO: add docs
+* [swarm.peers](#swarmpeers)
 * [version](#version) TODO: add docs
 
 Note: All API methods are documented using Promises/async/await but they also accept a callback as their last parameter.
@@ -754,4 +754,103 @@ Unsubscribe all handlers:
 
 ```js
 await ipfs.pubsub.unsubscribe('my-pubsub-topic')
+```
+
+## swarm.connect
+
+Open a connection to a given address.
+
+### `swarm.connect(addr, [options]): Promise<String[]>`
+
+#### Parameters
+
+* `addr` - Multiaddr address(es) of IPFS node(s) to connect to.
+    * Type: `String`|`String[]`
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+
+#### Returns
+
+List of connection status messages for each peer connection attempted.
+
+* Type: `Promise<String[]>`
+
+#### Examples
+
+```js
+const res = await ipfs.swarm.connect('/ip4/127.0.0.1/tcp/4101/ipfs/Qmeg3LQNGuiwpinKe69YBbADV2PpqGcGtcgLeaNjoxuUdV')
+console.log(res)
+/*
+[
+  'connect Qmeg3LQNGuiwpinKe69YBbADV2PpqGcGtcgLeaNjoxuUdV success'
+]
+*/
+```
+
+## swarm.peers
+
+List peers with open connections.
+
+### `swarm.peers([options]): Promise<Object[]>`
+
+#### Parameters
+
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.direction` (optional) - Return direction information for each peer (inbound/outbound).
+    * Type: `Boolean`
+    * Default: `false`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+* `options.latency` (optional) - Return latency information for each peer.
+    * Type: `Boolean`
+    * Default: `false`
+* `options.streams` (optional) - Return streams information for each peer.
+    * Type: `Boolean`
+    * Default: `false`
+* `options.verbose` (optional) - Return streams, latency, and direction info as well as address and ID for each peer.
+    * Type: `Boolean`
+    * Default: `false`
+
+#### Returns
+
+Peer information for peers with open connections.
+
+* Type: `Promise<Object[]>`
+
+#### Examples
+
+```js
+const peers = await ipfs.swarm.peers({ verbose: true })
+console.log(res)
+/*
+[
+  {
+    addr: '/ip6/2a03:b0c0:3:e1::130:e001/tcp/4001',
+    peer: 'QmYR4jxcGUTQZ7mA5DkfBSxpdJW5Y4CsfgHFfARLAV3goA',
+    latency: '27.965651ms',
+    muxer: '',
+    direction: 2,
+    streams: [ { protocol: '/ipfs/bitswap/1.1.0' } ]
+  },
+  {
+    addr: '/ipfs/QmdGQoGuK3pao6bRDqGSDvux5SFHa4kC1XNFfHFcvcbydY/p2p-circuit',
+    peer: 'QmcqrAQZqcQxrVpw2Png7FrSfNArfEFTu9UhPopmKPZpGP',
+    latency: '772.455375ms',
+    muxer: '',
+    direction: 2,
+    streams: [
+      { protocol: '/ipfs/bitswap/1.1.0' },
+      { protocol: '/ipfs/kad/1.0.0' }
+    ]
+  },
+  // ...
+]
+*/
 ```

@@ -222,10 +222,10 @@ This module is in heavy development, not all API methods are available (or docum
 * stats.bwPullStream
 * stats.repo
 * swarm.addrs
-* [swarm.connect](./API.md#swarmconnect) TODO: add docs
+* [swarm.connect](./API.md#swarmconnect)
 * swarm.disconnect
 * swarm.localAddrs
-* [swarm.peers](./API.md#swarmpeers) TODO: add docs
+* [swarm.peers](./API.md#swarmpeers)
 * [version](./API.md#version) TODO: add docs
 
 Note: All API methods are documented using Promises/async/await but they also accept a callback as their last parameter.

@@ -24,8 +24,20 @@ function createFactory (options) {
     } else {
       setup = (callback) => {
         callback(null, {
-          spawnNode (cb) {
-            ipfsFactory.spawn(options.spawnOptions, (err, _ipfsd) => {
+          spawnNode (repoPath, config, cb) {
+            if (typeof repoPath === 'function') {
+              cb = repoPath
+              repoPath = null
+            }
+
+            if (typeof config === 'function') {
+              cb = config
+              config = null
+            }
+
+            const spawnOptions = { ...options.spawnOptions, repoPath, config }
+
+            ipfsFactory.spawn(spawnOptions, (err, _ipfsd) => {
               if (err) {
                 return cb(err)
               }

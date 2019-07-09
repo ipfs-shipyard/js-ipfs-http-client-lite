@@ -25,6 +25,10 @@ module.exports = ipfsLite => {
       publish: ipfsLite.pubsub.publish,
       subscribe: callbackify(require('./pubsub/subscribe')(ipfsLite), { minArgs: 2 }),
       unsubscribe: callbackify(require('./pubsub/unsubscribe')(ipfsLite), { minArgs: 2 })
+    },
+    swarm: {
+      connect: ipfsLite.swarm.connect,
+      peers: callbackify(require('./swarm/peers')(ipfsLite))
     }
   }
 
