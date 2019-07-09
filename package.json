@@ -8,7 +8,7 @@
     "./src/lib/configure.js": "./src/lib/configure.browser.js",
     "./src/add/form-data.js": "./src/add/form-data.browser.js"
   },
-  "browserslist": ">1.5% or node >=10 and not ie 11 and not dead",
+  "browserslist": ">1.5% or node >=10 and not ios_saf <13 and not ie 11 and not dead",
   "files": [
     "src",
     "dist"
