@@ -1,11 +1,10 @@
 'use strict'
 
-// const toStream = require('async-iterator-to-stream')
 const FormData = require('form-data')
-const { Readable } = require('stream')
 const normaliseInput = require('./normalise-input')
+const toStream = require('../lib/iterable-to-readable-stream')
 
-exports.toFormData = async function toFormData (input) {
+exports.toFormData = async (input) => {
   // In Node.js, FormData can be passed a stream so no need to buffer
   const files = normaliseInput(input)
   const formData = new FormData()
@@ -39,27 +38,4 @@ exports.toFormData = async function toFormData (input) {
   }
 
   return formData
-}
-
-function toStream (iterable) {
-  let reading = false
-  return new Readable({
-    async read (size) {
-      if (reading) return
-      reading = true
-
-      try {
-        while (true) {
-          const { value, done } = await iterable.next(size)
-          if (done) return this.push(null)
-          if (!this.push(value)) break
-        }
-      } catch (err) {
-        this.emit('error', err)
-        if (iterable.return) iterable.return()
-      } finally {
-        reading = false
-      }
-    }
-  })
 }

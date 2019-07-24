@@ -6,7 +6,8 @@
   "main": "src/index.js",
   "browser": {
     "./src/lib/configure.js": "./src/lib/configure.browser.js",
-    "./src/add/form-data.js": "./src/add/form-data.browser.js"
+    "./src/add/form-data.js": "./src/add/form-data.browser.js",
+    "./src/files/write/form-data.js": "./src/files/write/form-data.browser.js"
   },
   "browserslist": ">1.5% or node >=10 and not ios_saf <13 and not ie 11 and not dead",
   "files": [
@@ -42,7 +43,7 @@
     "bignumber.js": "^9.0.0",
     "chai": "^4.2.0",
     "dirty-chai": "^2.0.1",
-    "go-ipfs-dep": "~0.4.21",
+    "go-ipfs-dep": "^0.4.21",
     "interface-ipfs-core": "~0.105.1",
     "ipfs-block": "^0.8.1",
     "ipfsd-ctl": "^0.43.0",

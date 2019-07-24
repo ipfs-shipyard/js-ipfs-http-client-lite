@@ -2,13 +2,17 @@
 
 const { Buffer } = require('buffer')
 const configure = require('../lib/configure')
+const { objectToQuery } = require('../lib/querystring')
 const { ok } = require('../lib/fetch')
 
 module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return async (topic, data, options) => {
     options = options || {}
 
-    const url = `${apiUrl}${apiPath}/pubsub/pub?arg=${encodeURIComponent(topic)}&arg=${encodeBuffer(Buffer.from(data))}`
+    let qs = objectToQuery(options.qs)
+    qs = qs ? `&${qs.slice(1)}` : qs
+
+    const url = `${apiUrl}${apiPath}/pubsub/pub?arg=${encodeURIComponent(topic)}&arg=${encodeBuffer(Buffer.from(data))}${qs}`
     const res = await ok(fetch(url, {
       method: 'POST',
       signal: options.signal,

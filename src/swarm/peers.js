@@ -12,7 +12,8 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
     const qs = objectToQuery({
       verbose: options.verbose,
       streams: options.streams,
-      latency: options.latency
+      latency: options.latency,
+      ...(options.qs || {})
     })
 
     const url = `${apiUrl}${apiPath}/swarm/peers${qs}`

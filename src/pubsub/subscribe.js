@@ -14,7 +14,12 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
     options = options || {}
     options.signal = subsTracker.subscribe(topic, handler, options.signal)
 
-    const qs = objectToQuery({ arg: topic, discover: options.discover })
+    const qs = objectToQuery({
+      arg: topic,
+      discover: options.discover,
+      ...(options.qs || {})
+    })
+
     const url = `${apiUrl}${apiPath}/pubsub/sub${qs}`
     let res
 

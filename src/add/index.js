@@ -27,7 +27,8 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
       'shard-split-threshold': options.shardSplitThreshold,
       silent: options.silent,
       trickle: options.trickle,
-      'wrap-with-directory': options.wrapWithDirectory
+      'wrap-with-directory': options.wrapWithDirectory,
+      ...(options.qs || {})
     })
 
     const url = `${apiUrl}${apiPath}/add${qs}`

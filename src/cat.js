@@ -3,12 +3,18 @@
 const { Buffer } = require('buffer')
 const configure = require('./lib/configure')
 const { ok, toIterable } = require('./lib/fetch')
+const { objectToQuery } = require('./lib/querystring')
 
 module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return (cid, options) => (async function * () {
     options = options || {}
 
-    const url = `${apiUrl}${apiPath}/cat?arg=${encodeURIComponent(cid)}`
+    const qs = objectToQuery({
+      arg: cid.toString(),
+      ...(options.qs || {})
+    })
+
+    const url = `${apiUrl}${apiPath}/cat${qs}`
     const res = await ok(fetch(url, {
       signal: options.signal,
       headers: options.headers || headers

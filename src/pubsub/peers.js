@@ -13,7 +13,12 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
 
     options = options || {}
 
-    const url = `${apiUrl}${apiPath}/pubsub/peers${objectToQuery({ arg: topic })}`
+    const qs = objectToQuery({
+      arg: topic,
+      ...(options.qs || {})
+    })
+
+    const url = `${apiUrl}${apiPath}/pubsub/peers${qs}`
     const res = await ok(fetch(url, {
       signal: options.signal,
       headers: options.headers || headers
