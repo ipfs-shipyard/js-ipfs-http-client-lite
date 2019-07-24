@@ -29,17 +29,17 @@
 * dht.put
 * dht.query
 * dns
-* files.cp
+* [files.cp](#filescp)
 * files.flush
 * files.ls
 * files.lsPullStream
-* files.mkdir
+* [files.mkdir](#filesmkdir)
 * files.mv
 * files.read
 * files.readPullStream
 * files.rm
 * files.stat
-* files.write
+* [files.write](#fileswrite)
 * [id](#id) TODO: add docs
 * key.export
 * key.gen
@@ -176,6 +176,9 @@ Add/import files and directories to IPFS and retrieve their CID(s).
 * `options.hashAlg` (optional) - Hashing algorithm to use when creating the CID(s). [Available values]( https://github.com/multiformats/js-multihash/blob/master/src/constants.js#L5-L343).
     * Type: `String`
     * Default: `sha2-256`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
 * `options.onlyHash` (optional) - Do not add the file(s) to IPFS, only calculate the CID(s).
     * Type: `Boolean`
     * Default: `false`
@@ -184,6 +187,9 @@ Add/import files and directories to IPFS and retrieve their CID(s).
     * Default: `true`
 * `options.progress` (optional) - A function that receives progress updates as data is added to IPFS. It is called with the byte length of chunks as a file is added to IPFS.
     * Type: `Function(bytes<Number>)`
+    * Default: `null`
+* `options.qs` (optional) - Additional query string parameters
+    * Type: `Object`
     * Default: `null`
 * `options.quiet` (optional) - Return a minimal output.
     * Type: `Boolean`
@@ -401,6 +407,12 @@ Fetch a raw block from the IPFS block store or the network via bitswap if not lo
 * `options` (optional)
     * Type: `Object`
     * Default: `null`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
+* `options.qs` (optional) - Additional query string parameters
+    * Type: `Object`
+    * Default: `null`
 * `options.signal` (optional) - A signal that can be used to abort the request
     * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
     * Default: `null`
@@ -434,6 +446,9 @@ Put a block into the IPFS block store.
 * `options.format` (optional) - Name of the IPLD format this block is encoded with
     * Type: `String`
     * Default: `dag-pb`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
 * `options.mhtype` (optional) - Name of the multihash hashing algorithm to use
     * Type: `String`
     * Default: `sha2-256`
@@ -443,6 +458,9 @@ Put a block into the IPFS block store.
 * `options.pin` (optional) - Pin this block so it is not garbage collected
     * Type: `Boolean`
     * Default: `false`
+* `options.qs` (optional) - Additional query string parameters
+    * Type: `Object`
+    * Default: {}
 * `options.signal` (optional) - A signal that can be used to abort the request
     * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
     * Default: `null`
@@ -482,6 +500,12 @@ Get status for a block.
 * `cid` - CID of the block
     * Type: `String`
 * `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
+* `options.qs` (optional) - Additional query string parameters
     * Type: `Object`
     * Default: `null`
 * `options.signal` (optional) - A signal that can be used to abort the request
@@ -524,12 +548,18 @@ Read files from IPFS.
 * `options` (optional)
     * Type: `Object`
     * Default: `null`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
 * `options.offset` (optional) - Byte offset to start reading from
     * Type: `Number`
     * Default: `0`
 * `options.length` (optional) - Number of bytes to read
     * Type: `Number`
     * Default: `null` (read to the end of the file)
+* `options.qs` (optional) - Additional query string parameters
+    * Type: `Object`
+    * Default: `null`
 * `options.signal` (optional) - A signal that can be used to abort the request
     * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
     * Default: `null`
@@ -562,6 +592,186 @@ hello world!
 */
 ```
 
+## files.cp
+
+Copy files into [MFS](https://docs.ipfs.io/guides/concepts/mfs/).
+
+### `files.cp(...from, to, [options]): Promise`
+
+#### Parameters
+
+* `from` - Path(s) of the source to copy. It might be an existing MFS path to a file or a directory (e.g. `/my-dir/my-file.txt`) or an IPFS path (e.g. `/ipfs/QmWGeRAEgtsHW3ec7U4qW2CyVy7eA2mFRVbk1nb24jFyks`)
+    * Type: `String`
+* `to` - Path of the destination to copy to
+    * Type: `String`
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.flush` (optional) - Immediately flush MFS changes to disk
+    * Type: `Boolean`
+    * Default: `true`
+* `options.format` (optional) - Type of nodes to write any newly created directories as
+    * Type: `String`
+    * Default: `dag-pb`
+* `options.hashAlg` (optional) - Hashing algorithm to use when creating the CID(s). [Available values]( https://github.com/multiformats/js-multihash/blob/master/src/constants.js#L5-L343).
+    * Type: `String`
+    * Default: `sha2-256`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
+* `options.parents` (optional) - Create parent directories if they do not exist
+    * Type: `Boolean`
+    * Default: `false`
+* `options.qs` (optional) - Additional query string parameters
+    * Type: `Object`
+    * Default: `null`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+
+If `from` has multiple values then `to` must be a directory.
+
+If `from` has a single value and `to` exists and is a directory, `from` will be copied into `to`.
+
+If `from` has a single value and `to` exists and is a file, `from` must be a file and the contents of `to` will be replaced with the contents of `from` otherwise an error will be thrown.
+
+If `from` is an IPFS path, and an MFS path exists with the same name, the IPFS path will be chosen.
+
+#### Returns
+
+A promise that resolves when the operation is complete.
+
+* Type: `Promise`
+
+#### Examples
+
+```js
+// To copy a file
+await ipfs.files.cp('/src-file', '/dst-file')
+
+// To copy a directory
+await ipfs.files.cp('/src-dir', '/dst-dir')
+
+// To copy multiple files to a directory
+await ipfs.files.cp('/src-file1', '/src-file2', '/dst-dir')
+```
+
+## files.mkdir
+
+Make a directory in [MFS](https://docs.ipfs.io/guides/concepts/mfs/).
+
+### `files.mkdir(path, [options]): Promise`
+
+#### Parameters
+
+* `path` - path to the directory to make
+    * Type: `String`
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.cidVersion` (optional) - The CID version to use when storing the data (storage keys are based on the CID, including its version).
+    * Type: `Number` (0 or 1)
+    * Default: `0`
+* `options.flush` (optional) - Immediately flush MFS changes to disk
+    * Type: `Boolean`
+    * Default: `true`
+* `options.format` (optional) - Type of nodes to write any newly created directories as
+    * Type: `String`
+    * Default: `dag-pb`
+* `options.hashAlg` (optional) - Hashing algorithm to use when creating the CID(s). [Available values]( https://github.com/multiformats/js-multihash/blob/master/src/constants.js#L5-L343).
+    * Type: `String`
+    * Default: `sha2-256`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
+* `options.parents` (optional) - Create parent directories if they do not exist
+    * Type: `Boolean`
+    * Default: `false`
+* `options.qs` (optional) - Additional query string parameters
+    * Type: `Object`
+    * Default: `null`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+
+#### Returns
+
+A promise that resolves when the operation is complete.
+
+* Type: `Promise`
+
+#### Examples
+
+```js
+await ipfs.files.mkdir('/my/beautiful/directory')
+```
+
+## files.write
+
+Write to a file in [MFS](https://docs.ipfs.io/guides/concepts/mfs/).
+
+### `files.write(path, content, [options]): Promise`
+
+#### Parameters
+
+* `path` - Path to the file that should be written to
+    * Type: `String`
+* `content` - File content
+    * Type (one of):
+        * `Buffer`, or "buffer like": `ArrayBuffer`/`TypedArray`
+        * `Blob`/`File` (browser only)
+        * `Iterable<Number>` (e.g. array of bytes)
+        * `AsyncIterable<Buffer>` (e.g. a Node.js Stream)
+        * `PullStream<Buffer>`
+* `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.cidVersion` (optional) - The CID version to use when storing the data (storage keys are based on the CID, including its version).
+    * Type: `Number` (0 or 1)
+    * Default: `0`
+* `options.count` (optional) - Number of bytes to write
+    * Type: `Number`
+    * Default: All bytes provided by `content`
+* `options.create` (optional) - Create file if it does not exist
+    * Type: `Boolean`
+    * Default: `false`
+* `options.hashAlg` (optional) - Hashing algorithm to use when creating the CID(s). [Available values]( https://github.com/multiformats/js-multihash/blob/master/src/constants.js#L5-L343).
+    * Type: `String`
+    * Default: `sha2-256`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
+* `options.offset` (optional) - Byte offset to begin writing at
+    * Type: `Number`
+    * Default: `0`
+* `options.parents` (optional) - Create parent directories if they do not exist
+    * Type: `Boolean`
+    * Default: `false`
+* `options.qs` (optional) - Additional query string parameters
+    * Type: `Object`
+    * Default: `null`
+* `options.rawLeaves` (optional) - DAG leaf nodes contain raw file data and are not wrapped in a protobuf
+    * Type: `Boolean`
+    * Default: `false`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
+* `options.truncate` (optional) - Truncate the file to size zero before writing
+    * Type: `Boolean`
+    * Default: `false`
+
+#### Returns
+
+A promise that resolves when the operation is complete.
+
+* Type: `Promise`
+
+#### Examples
+
+```js
+await ipfs.files.write('/hello-world', Buffer.from('Hello, world!'))
+```
+
 ## pubsub.ls
 
 List subscribed topics by name.
@@ -571,6 +781,12 @@ List subscribed topics by name.
 #### Parameters
 
 * `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
+* `options.qs` (optional) - Additional query string parameters
     * Type: `Object`
     * Default: `null`
 * `options.signal` (optional) - A signal that can be used to abort the request
@@ -607,6 +823,12 @@ List peers we are currently pubsubbing with, optionally filtered by topic name.
 * `options` (optional)
     * Type: `Object`
     * Default: `null`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
+* `options.qs` (optional) - Additional query string parameters
+    * Type: `Object`
+    * Default: `null`
 * `options.signal` (optional) - A signal that can be used to abort the request
     * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
     * Default: `null`
@@ -640,6 +862,12 @@ Publish a message to a given pubsub topic.
 * `message` - Message to publish
     * Type: `Buffer`/`ArrayBuffer`/`String`
 * `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
+* `options.qs` (optional) - Additional query string parameters
     * Type: `Object`
     * Default: `null`
 * `options.signal` (optional) - A signal that can be used to abort the request
@@ -686,8 +914,14 @@ Subscribe to messages on a given topic.
 * `options.discover` (optional) - Try to discover other peers subscribed to the same topic
     * Type: `Boolean`
     * Deafult: `false`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
 * `options.onError` (optional) - An error handler called when the request errors or parsing of a given message fails. It is passed two parameters, the error that occurred and a boolean indicating if it was a fatal error or not (fatal errors terminate the subscription).
     * Type: `Function(err<Error>, fatal<Boolean>)`
+    * Default: `null`
+* `options.qs` (optional) - Additional query string parameters
+    * Type: `Object`
     * Default: `null`
 * `options.signal` (optional) - A signal that can be used to abort the request
     * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
@@ -721,7 +955,7 @@ data: hi
 
 Stop receiving messages for a given topic.
 
-### `pubsub.unsubscribe(topic, [handler], [options]): Promise`
+### `pubsub.unsubscribe(topic, [handler]): Promise`
 
 #### Parameters
 
@@ -729,12 +963,6 @@ Stop receiving messages for a given topic.
     * Type: `String`
 * `handler` (optional) - The handler function currently registered for this topic. If not provided, **all** handlers for the passed topic will be unsubscribed. Note this only works using the Promise API.
     * Type: `Function`
-    * Default: `null`
-* `options` (optional)
-    * Type: `Object`
-    * Default: `null`
-* `options.signal` (optional) - A signal that can be used to abort the request
-    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
     * Default: `null`
 
 #### Returns
@@ -767,6 +995,12 @@ Open a connection to a given address.
 * `addr` - Multiaddr address(es) of IPFS node(s) to connect to.
     * Type: `String`|`String[]`
 * `options` (optional)
+    * Type: `Object`
+    * Default: `null`
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
+    * Default: `null`
+* `options.qs` (optional) - Additional query string parameters
     * Type: `Object`
     * Default: `null`
 * `options.signal` (optional) - A signal that can be used to abort the request
@@ -805,12 +1039,18 @@ List peers with open connections.
 * `options.direction` (optional) - Return direction information for each peer (inbound/outbound).
     * Type: `Boolean`
     * Default: `false`
-* `options.signal` (optional) - A signal that can be used to abort the request
-    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+* `options.headers` (optional) - Custom HTTP headers to send
+    * Type: `Object`
     * Default: `null`
 * `options.latency` (optional) - Return latency information for each peer.
     * Type: `Boolean`
     * Default: `false`
+* `options.qs` (optional) - Additional query string parameters
+    * Type: `Object`
+    * Default: `null`
+* `options.signal` (optional) - A signal that can be used to abort the request
+    * Type: [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+    * Default: `null`
 * `options.streams` (optional) - Return streams information for each peer.
     * Type: `Boolean`
     * Default: `false`

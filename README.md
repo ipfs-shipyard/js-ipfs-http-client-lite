@@ -166,17 +166,17 @@ This module is in heavy development, not all API methods are available (or docum
 * dht.put
 * dht.query
 * dns
-* files.cp
+* [files.cp](./API.md#filescp)
 * files.flush
 * files.ls
 * files.lsPullStream
-* files.mkdir
+* [files.mkdir](./API.md#filesmkdir)
 * files.mv
 * files.read
 * files.readPullStream
 * files.rm
 * files.stat
-* files.write
+* [files.write](./API.md#fileswrite)
 * [id](./API.md#id) TODO: add docs
 * key.export
 * key.gen

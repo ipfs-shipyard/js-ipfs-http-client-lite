@@ -264,7 +264,52 @@ describe('interface-ipfs-core tests', () => {
     ]
   })
 
-  tests.filesMFS(defaultCommon, { skip: { reason: 'LITE: not implemented yet' } })
+  tests.filesMFS(defaultCommon, {
+    skip: [{
+      name: 'write',
+      reason: 'LITE: depends on stat, stat not implemented yet'
+    },
+    {
+      name: 'stat',
+      reason: 'LITE: not implemented yet'
+    },
+    {
+      name: 'mv',
+      reason: 'LITE: not implemented yet'
+    },
+    {
+      name: 'rm',
+      reason: 'LITE: not implemented yet'
+    },
+    {
+      name: 'read',
+      reason: 'LITE: not implemented yet'
+    },
+    {
+      name: 'readReadableStream',
+      reason: 'LITE: Node.js streams not supported'
+    },
+    {
+      name: 'readPullStream',
+      reason: 'LITE: not implemented yet'
+    },
+    {
+      name: 'ls',
+      reason: 'LITE: not implemented yet'
+    },
+    {
+      name: 'lsReadableStream',
+      reason: 'LITE: Node.js streams not supported'
+    },
+    {
+      name: 'lsPullStream',
+      reason: 'LITE: not implemented yet'
+    },
+    {
+      name: 'flush',
+      reason: 'LITE: not implemented yet'
+    }]
+  })
 
   tests.key(defaultCommon, {
     // skip: [

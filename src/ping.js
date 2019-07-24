@@ -10,7 +10,12 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return (peerId, options) => (async function * () {
     options = options || {}
 
-    const qs = objectToQuery({ arg: peerId, count: options.count })
+    const qs = objectToQuery({
+      arg: peerId,
+      count: options.count,
+      ...(options.qs || {})
+    })
+
     const url = `${apiUrl}${apiPath}/ping${qs}`
     const res = await ok(fetch(url, {
       signal: options.signal,

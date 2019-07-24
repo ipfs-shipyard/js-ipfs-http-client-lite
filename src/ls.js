@@ -9,7 +9,12 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
   return (path, options) => (async function * () {
     options = options || {}
 
-    const url = `${apiUrl}${apiPath}/ls${objectToQuery({ arg: path.toString() })}`
+    const qs = objectToQuery({
+      arg: path.toString(),
+      ...(options.qs || {})
+    })
+
+    const url = `${apiUrl}${apiPath}/ls${qs}`
     const res = await ok(fetch(url, {
       signal: options.signal,
       headers: options.headers || headers

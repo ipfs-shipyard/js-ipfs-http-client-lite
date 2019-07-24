@@ -14,7 +14,8 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
       format: options.format,
       mhtype: options.mhtype,
       mhlen: options.mhlen,
-      pin: options.pin
+      pin: options.pin,
+      ...(options.qs || {})
     })
 
     const url = `${apiUrl}${apiPath}/block/put${qs}`

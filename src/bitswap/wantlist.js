@@ -13,7 +13,12 @@ module.exports = configure(({ fetch, apiUrl, apiPath, headers }) => {
 
     options = options || {}
 
-    const url = `${apiUrl}${apiPath}/bitswap/wantlist${objectToQuery({ peer: peerId })}`
+    const qs = objectToQuery({
+      peer: peerId,
+      ...(options.qs || {})
+    })
+
+    const url = `${apiUrl}${apiPath}/bitswap/wantlist${qs}`
     const res = await ok(fetch(url, {
       signal: options.signal,
       headers: options.headers || headers

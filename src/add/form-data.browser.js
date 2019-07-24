@@ -3,7 +3,7 @@
 
 const normaliseInput = require('./normalise-input')
 
-exports.toFormData = async function toFormData (input) {
+exports.toFormData = async (input) => {
   const files = normaliseInput(input)
   const formData = new FormData()
   let i = 0

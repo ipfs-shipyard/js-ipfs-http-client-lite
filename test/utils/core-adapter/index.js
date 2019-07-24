@@ -17,6 +17,11 @@ module.exports = ipfsLite => {
       put: callbackify(require('./block/put')(ipfsLite)),
       stat: ipfsLite.block.stat
     },
+    files: {
+      cp: callbackify(require('./files/cp')(ipfsLite)),
+      mkdir: callbackify(require('./files/mkdir')(ipfsLite)),
+      write: ipfsLite.files.write
+    },
     ls: callbackify(require('./ls')(ipfsLite)),
     lsPullStream: require('./ls-pull-stream')(ipfsLite),
     pubsub: {

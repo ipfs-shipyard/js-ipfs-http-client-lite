@@ -25,6 +25,11 @@ module.exports = config => {
     },
     cat: callbackify(concatify(cat)),
     catPullStream: pullify.source(cat),
+    files: {
+      cp: callbackify(require('./files/cp')(config)),
+      mkdir: callbackify(require('./files/mkdir')(config)),
+      write: callbackify(require('./files/write')(config))
+    },
     ls: callbackify(collectify(ls)),
     lsPullStream: pullify.source(ls),
     id: callbackify(require('./id')(config)),
