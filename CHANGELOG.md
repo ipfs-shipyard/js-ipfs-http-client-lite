@@ -1,3 +1,13 @@
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/ipfs-shipyard/js-ipfs-http-client-lite/compare/v0.2.1...v0.3.0) (2019-07-24)
+
+
+### Features
+
+* add MFS commands write, cp, mkdir ([#2](https://github.com/ipfs-shipyard/js-ipfs-http-client-lite/issues/2)) ([fba8947](https://github.com/ipfs-shipyard/js-ipfs-http-client-lite/commit/fba8947))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/ipfs-shipyard/js-ipfs-http-client-lite/compare/v0.2.0...v0.2.1) (2019-07-09)
 
