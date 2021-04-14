@@ -42,6 +42,7 @@ module.exports = config => {
       subscribe: callbackify(require('./pubsub/subscribe')(config), { minArgs: 2 }),
       unsubscribe: callbackify(require('./pubsub/unsubscribe')(config), { minArgs: 2 })
     },
+    resolve: callbackify(require('./resolve')(config)),
     swarm: {
       connect: callbackify(require('./swarm/connect')(config)),
       peers: callbackify(require('./swarm/peers')(config))
