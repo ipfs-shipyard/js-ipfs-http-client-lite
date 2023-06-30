@@ -1,4 +1,4 @@
-> # ⛔️ DEPRECATED: [js-ipfs-http-client-lite](https://github.com/ipfs-shipyard/js-ipfs-http-client-lite) has been superseded by [js-kubo-rpc-client](https://github.com/ipfs/js-kubo-rpc-client)
+> # ⛔️ DEPRECATED: [js-ipfs-http-client-lite](https://github.com/ipfs-shipyard/js-ipfs-http-client-lite) has been superseded by [kubo-rpc-client](https://github.com/ipfs/js-kubo-rpc-client)
 >
 > ⚠️ If you continue using this repo, please note that security fixes will not be provided.
 
