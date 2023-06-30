@@ -1,3 +1,7 @@
+> # ⛔️ DEPRECATED: [js-ipfs-http-client-lite](https://github.com/ipfs-shipyard/js-ipfs-http-client-lite) has been superseded by [kubo-rpc-client](https://github.com/ipfs/js-kubo-rpc-client)
+>
+> ⚠️ If you continue using this repo, please note that security fixes will not be provided.
+
 <h1 align="center">
   <a href="https://ipfs.io"><img width="720" src="https://ipfs.io/ipfs/QmdPAhQRxrDKqkGPvQzBvjYe3kU8kiEEAd2J6ETEamKAD9" alt="IPFS HTTP client LITE logo" /></a>
 </h1>
